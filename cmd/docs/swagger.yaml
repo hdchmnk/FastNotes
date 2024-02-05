@@ -1,0 +1,9 @@
+basePath: /
+host: localhost:8080
+info:
+  contact: {}
+  description: This is Swagger API for FastNotes API
+  title: FastNotes Swagger API
+  version: "1.0"
+paths: {}
+swagger: "2.0"
