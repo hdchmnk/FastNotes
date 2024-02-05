@@ -4,10 +4,9 @@ import (
 	_ "FastNotes/cmd/docs"
 	"FastNotes/internal/db"
 	"FastNotes/internal/user"
-	"github.com/labstack/echo/v4"
+	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	echoSwagger "github.com/swaggo/echo-swagger"
 	"net/http"
 	"os"
 )
@@ -27,18 +26,17 @@ func main() {
 		log.Fatal().Err(err).Msg("db connection error")
 	}
 
-	e := echo.New()
+	r := gin.New()
 
 	userRepository := user.NewRepository(dbConn.GetDB())
 	userService := user.NewService(userRepository)
 	userHandler := user.NewHandler(userService)
 
-	e.POST("/signup", userHandler.CreateUser)
-	e.POST("/login", userHandler.Login)
-	e.GET("/logout", userHandler.Logout)
-	e.GET("/swagger/*", echoSwagger.WrapHandler)
+	r.POST("/signup", userHandler.CreateUser)
+	r.POST("/login", userHandler.Login)
+	r.GET("/logout", userHandler.Logout)
 
-	if err := e.Start(":8080"); err != http.ErrServerClosed {
+	if err := r.Run(":8080"); err != http.ErrServerClosed {
 		log.Fatal().Err(err).Msg("server error")
 	}
 }
