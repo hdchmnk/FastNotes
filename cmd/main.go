@@ -3,6 +3,7 @@ package main
 import (
 	_ "FastNotes/cmd/docs"
 	"FastNotes/internal/db"
+	"FastNotes/internal/notes"
 	"FastNotes/internal/user"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog"
@@ -32,9 +33,14 @@ func main() {
 	userService := user.NewService(userRepository)
 	userHandler := user.NewHandler(userService)
 
+	notesRepository := notes.NewRepository(dbConn.GetDB())
+	notesService := notes.NewService(notesRepository)
+	notesHandler := notes.NewHandler(notesService)
+
 	r.POST("/signup", userHandler.CreateUser)
 	r.POST("/login", userHandler.Login)
 	r.GET("/logout", userHandler.Logout)
+	r.POST("/createnote", notesHandler.CreateNote)
 
 	if err := r.Run(":8080"); err != http.ErrServerClosed {
 		log.Fatal().Err(err).Msg("server error")
