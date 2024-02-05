@@ -29,4 +29,5 @@ type Repository interface {
 
 type Service interface {
 	CreateNote(c context.Context, req *CreateNoteReq) (*CreateNoteRes, error)
+	GetNotesByUserID(ctx context.Context, id int64) (*[]Note, error)
 }

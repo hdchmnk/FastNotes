@@ -38,3 +38,14 @@ func (s *service) CreateNote(c context.Context, req *CreateNoteReq) (*CreateNote
 	}
 	return res, nil
 }
+
+func (s *service) GetNotesByUserID(c context.Context, id int64) (*[]Note, error) {
+	ctx, cancel := context.WithTimeout(c, s.timeout)
+	defer cancel()
+
+	r, err := s.Repository.GetNotesByUserID(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	return r, nil
+}

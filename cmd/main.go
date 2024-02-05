@@ -41,6 +41,7 @@ func main() {
 	r.POST("/login", userHandler.Login)
 	r.GET("/logout", userHandler.Logout)
 	r.POST("/createnote", notesHandler.CreateNote)
+	r.POST("/getnotesbyid", notesHandler.GetNotesByUserID)
 
 	if err := r.Run(":8080"); err != http.ErrServerClosed {
 		log.Fatal().Err(err).Msg("server error")
