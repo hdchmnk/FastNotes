@@ -13,6 +13,14 @@ func NewHandler(s Service) *Handler {
 	return &Handler{Service: s}
 }
 
+// @Summary CreateUser
+// @Schemes
+// @Description [POST] CreateUser
+// @Tags user
+// @Accept json
+// @Produce json
+// @Success 200 {object} user.User
+// @Router /signup [post]
 func (h *Handler) CreateUser(c *gin.Context) {
 	var u CreateUserReq
 	if err := c.ShouldBindJSON(&u); err != nil {
@@ -29,6 +37,14 @@ func (h *Handler) CreateUser(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// @Summary Login
+// @Schemes
+// @Description [POST] Login
+// @Tags user
+// @Accept json
+// @Produce json
+// @Success 200 {object} user.LoginUserRes
+// @Router /login [post]
 func (h *Handler) Login(c *gin.Context) {
 	var user LoginUserReq
 	if err := c.ShouldBindJSON(&user); err != nil {
@@ -51,6 +67,13 @@ func (h *Handler) Login(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// @Summary Logout
+// @Schemes
+// @Description [GET] Logout
+// @Tags user
+// @Produce json
+// @Success 200 {string} logout successfully
+// @Router /logout [get]
 func (h *Handler) Logout(c *gin.Context) {
 	c.SetCookie("jwt", "", -1, "", "", false, true)
 	c.JSON(http.StatusOK, gin.H{"message": "logout successfully"})

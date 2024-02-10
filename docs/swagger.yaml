@@ -1,0 +1,97 @@
+basePath: /
+definitions:
+  notes.Note:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      userId:
+        type: integer
+    type: object
+  user.LoginUserRes:
+    properties:
+      id:
+        type: string
+      username:
+        type: string
+    type: object
+  user.User:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is Swagger for FastNotes API
+  title: FastNotes Swagger API
+  version: "1.0"
+paths:
+  /createnote:
+    post:
+      consumes:
+      - application/json
+      description: '[POST] CreateNote'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/notes.Note'
+      summary: CreateNote
+      tags:
+      - note
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: '[POST] Login'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.LoginUserRes'
+      summary: Login
+      tags:
+      - user
+  /logout:
+    get:
+      description: '[GET] Logout'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Logout
+      tags:
+      - user
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: '[POST] CreateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.User'
+      summary: CreateUser
+      tags:
+      - user
+swagger: "2.0"

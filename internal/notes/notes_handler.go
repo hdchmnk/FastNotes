@@ -13,6 +13,14 @@ func NewHandler(s Service) *Handler {
 	return &Handler{Service: s}
 }
 
+// @Summary CreateNote
+// @Schemes
+// @Description [POST] CreateNote
+// @Tags note
+// @Accept json
+// @Produce json
+// @Success 200 {object} notes.Note
+// @Router /createnote [post]
 func (h *Handler) CreateNote(c *gin.Context) {
 	var n CreateNoteReq
 	if err := c.ShouldBindJSON(&n); err != nil {
