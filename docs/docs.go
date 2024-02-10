@@ -38,6 +38,32 @@ const docTemplate = `{
                 }
             }
         },
+        "/getnotesbyid": {
+            "post": {
+                "description": "[POST] GetNotesByUserID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "note"
+                ],
+                "summary": "GetNotesByUserID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/notes.Note"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/login": {
             "post": {
                 "description": "[POST] Login",

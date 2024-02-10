@@ -51,6 +51,23 @@ paths:
       summary: CreateNote
       tags:
       - note
+  /getnotesbyid:
+    post:
+      consumes:
+      - application/json
+      description: '[POST] GetNotesByUserID'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/notes.Note'
+            type: array
+      summary: GetNotesByUserID
+      tags:
+      - note
   /login:
     post:
       consumes:

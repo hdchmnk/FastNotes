@@ -32,7 +32,7 @@ func (r *repository) CreateNote(ctx context.Context, note *Note) (*Note, error) 
 }
 
 func (r *repository) GetNotesByUserID(ctx context.Context, id int64) (*[]Note, error) {
-	query := "SELECT * FROM notes WHERE userId = ?"
+	query := "SELECT id, userId, title, description FROM notes WHERE userId = $1"
 	rows, err := r.db.QueryContext(ctx, query, id)
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (r *repository) GetNotesByUserID(ctx context.Context, id int64) (*[]Note, e
 
 	for rows.Next() {
 		var note Note
-		if err := rows.Scan(&note.Id, &note.Title, &note.Description, &note.UserId); err != nil {
+		if err := rows.Scan(&note.Id, &note.UserId, &note.Title, &note.Description); err != nil {
 			return &notes, err
 		}
 		notes = append(notes, note)

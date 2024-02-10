@@ -22,6 +22,14 @@ type CreateNoteRes struct {
 	Description string `json:"description" db:"description"`
 }
 
+type GetNotesByUserIDReq struct {
+	UserId int64
+}
+
+type GetNotesByUserIDRes struct {
+	Notes []Note
+}
+
 type Repository interface {
 	CreateNote(ctx context.Context, note *Note) (*Note, error)
 	GetNotesByUserID(ctx context.Context, id int64) (*[]Note, error)

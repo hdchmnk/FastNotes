@@ -24,7 +24,7 @@ func NewHandler(s Service) *Handler {
 func (h *Handler) CreateNote(c *gin.Context) {
 	var n CreateNoteReq
 	if err := c.ShouldBindJSON(&n); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"CreateNote error": err.Error()})
 		return
 	}
 
@@ -35,16 +35,25 @@ func (h *Handler) CreateNote(c *gin.Context) {
 	c.JSON(http.StatusOK, res)
 }
 
+// @Summary GetNotesByUserID
+// @Schemes
+// @Description [POST] GetNotesByUserID
+// @Tags note
+// @Accept json
+// @Produce json
+// @Success 200 {object} []Note
+// @Router /getnotesbyid [post]
 func (h *Handler) GetNotesByUserID(c *gin.Context) {
-	var n int64
+	var n GetNotesByUserIDReq
 	if err := c.ShouldBindJSON(&n); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	res, err := h.Service.GetNotesByUserID(c.Request.Context(), n)
+	res, err := h.Service.GetNotesByUserID(c.Request.Context(), n.UserId)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"GetNotesByUserID error": err.Error()})
 	}
+
 	c.JSON(http.StatusOK, res)
 }
